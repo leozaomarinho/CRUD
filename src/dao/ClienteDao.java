@@ -19,6 +19,7 @@ public class ClienteDao {
 				stmt.setString(2, cliente.getEmail());
 				stmt.setString(3,cliente.getTelefone());
 				stmt.executeUpdate();
+				conn.close();
 			}
 		catch(SQLException e){
 			throw new RuntimeException("Erro ao adicionar cliente",e);
