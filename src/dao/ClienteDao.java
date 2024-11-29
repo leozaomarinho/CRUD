@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,9 +13,10 @@ import model.Cliente;
 
 public class ClienteDao {
 
-	public void addCliente(Cliente cliente) {
+	public void addCliente(Cliente cliente) throws IOException {
 		
 		//Create
+		//Insert operation using prepared statement and parametrization to not create sql injection
 		String sql = "INSERT INTO cliente (nome,email,telefone) VALUES (?,?,?)";
 		try(Connection conn = DbConnection.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -30,7 +32,7 @@ public class ClienteDao {
 				
 	}
 	
-	public List<Cliente> getAllCliente (){
+	public List<Cliente> getAllCliente () throws IOException{
 		String sql = "SELECT * FROM cliente";
 		List<Cliente> clientes = new ArrayList<>();
 		
