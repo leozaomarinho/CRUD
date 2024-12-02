@@ -12,10 +12,11 @@ import factory.DbConnection;
 import model.Cliente;
 
 public class ClienteDao {
-
+	
+	//CREATE
 	public void addCliente(Cliente cliente) throws IOException {
 		
-		//Create
+		
 		//Insert operation using prepared statement and parametrization to not create sql injection
 		String sql = "INSERT INTO cliente (nome,email,telefone) VALUES (?,?,?)";
 		try(Connection conn = DbConnection.getConnection();
@@ -31,7 +32,7 @@ public class ClienteDao {
 		}
 				
 	}
-	
+	//READ
 	public List<Cliente> getAllCliente () throws IOException{
 		String sql = "SELECT * FROM cliente";
 		List<Cliente> clientes = new ArrayList<>();
@@ -54,7 +55,7 @@ public class ClienteDao {
 		}
 		return clientes;		
 	}
-	
+	//UPDATE
 	public void updateCliente(Cliente cliente) throws SQLException, IOException{
 		String sql = "UPDATE cliente SET nome = ?, email=?, telefone= ? WHERE id = ?";
 		try (Connection conn = 	DbConnection.getConnection();
@@ -68,6 +69,19 @@ public class ClienteDao {
 		catch(SQLException e) {
 			throw new RuntimeException("Erro ao atualizar cliente",e);
 		}
+	}
+	
+	//DELETE
+	public void deleteCliente(int id) throws IOException,SQLException {
+		String sql = "DELETE FROM cliente WHERE id = ?";
+		try(Connection conn = DbConnection.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(sql)){
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+		}catch(SQLException e) {
+			throw new RuntimeException("Erro ao deletar cliente",e);
+		}
+				
 	}
 	
 	
