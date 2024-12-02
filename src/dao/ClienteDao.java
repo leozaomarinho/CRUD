@@ -55,5 +55,22 @@ public class ClienteDao {
 		return clientes;		
 	}
 	
+	public void updateCliente(Cliente cliente) throws SQLException, IOException{
+		String sql = "UPDATE cliente SET nome = ?, email=?, telefone= ? WHERE id = ?";
+		try (Connection conn = 	DbConnection.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)){
+					stmt.setString(1,cliente.getNome());
+					stmt.setString(2, cliente.getEmail());
+					stmt.setString(3, cliente.getTelefone());
+					stmt.setInt(4,cliente.getId());
+					stmt.executeUpdate();	
+				}
+		catch(SQLException e) {
+			throw new RuntimeException("Erro ao atualizar cliente",e);
+		}
+	}
+	
+	
+	
 	
 }
