@@ -1,7 +1,0 @@
-<dependencies>
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>9.1.0</version>
-    </dependency>
-</dependencies>
